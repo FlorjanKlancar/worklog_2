@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply text-gray-300 bg-gradient-to-b from-sky-900 via-sky-900 to-black !important;
+    @apply text-gray-300 bg-gradient-to-b from-sky-900 via-sky-900 to-black;
   }
 }

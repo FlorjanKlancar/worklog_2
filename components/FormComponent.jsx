@@ -4,7 +4,12 @@ import CheckIcon from "@mui/icons-material/Check";
 import {useState} from "react";
 import {db} from "./firebase/index";
 import {initializeApp} from "firebase/app";
-import {getFirestore, collection, getDocs} from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  serverTimestamp,
+} from "firebase/firestore";
 
 function FormComponent() {
   const [wage, setWage] = useState(7.2);
@@ -18,14 +23,14 @@ function FormComponent() {
       wage: wage,
       hours: hours,
       date: date,
-      // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timestamp: serverTimestamp(),
     };
 
-    const response = await getDocs(collection(db, "hours"));
+    // const response = await getDocs(collection(db, "hours"));
 
-    console.log(response);
+    //console.log(response);
 
-    //db.collection("hours").add(insertObject);
+    db.collection("hours").add(insertObject);
     //console.log(await db.collection("hours").get());
   }
 
