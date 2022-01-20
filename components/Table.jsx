@@ -38,7 +38,7 @@ export default function MyComponent() {
           </div>
         </div>
       </div>
-      <div class="flex-grow overflow-y-scroll max-h-[500px] mt-4 rounded">
+      <div className="flex-grow overflow-y-scroll max-h-[500px] mt-4 rounded">
         <table className="min-w-full divide-y divide-gray-200 relative">
           <thead className="bg-gray-100  ">
             <tr>
