@@ -1,12 +1,16 @@
-import {db} from "./firebase/index";
-import {useEffect, useState} from "react";
+import { db } from "./firebase/index";
+import { useEffect, useState } from "react";
 import moment from "moment";
+import { ArrowRightIcon } from "@heroicons/react/solid";
+import { ArrowLeftIcon } from "@heroicons/react/solid";
 
 export default function MyComponent() {
   const [hours, setHours] = useState();
+  const [date, setDate] = useState(moment().format("YYYY-MM"));
 
   useEffect(() => {
     db.collection("hours")
+      .where("month", "==", moment(date).format("MM"))
       .orderBy("date", "asc")
       .onSnapshot((snapshot) =>
         setHours(
@@ -16,25 +20,46 @@ export default function MyComponent() {
           }))
         )
       );
-  }, []);
+  }, [date]);
+
+  console.log(hours);
 
   return (
     <>
-      <div className="flex flex-col justify-between mt-4 space-y-4">
-        <div className="flex p-1 bg-sky-600 rounded-lg text-white text-center border-black border-1 shadow-sky-600 shadow-lg justify-between">
-          <div className="p-2">l</div>
-          <input type="month" className="bg-sky-600 p-2 text-center " />
-          <div className="p-2">r</div>
+      <div className="flex flex-col justify-between mt-16 space-y-4">
+        <div className="flex p-1 bg-sky-600 rounded-lg text-center border-black border-1 shadow-sky-600 shadow-lg justify-between">
+          <div className="p-2">
+            <ArrowLeftIcon
+              className="h-8 w-8 ml-2 hover:cursor-pointer "
+              onClick={() =>
+                setDate(moment(date).subtract(1, "months").format("YYYY-MM"))
+              }
+            />
+          </div>
+          <input
+            type="month"
+            className="bg-sky-600 p-2 text-center "
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+          <div className="p-2">
+            <ArrowRightIcon
+              className="h-8 w-8 ml-2 hover:cursor-pointer "
+              onClick={() =>
+                setDate(moment(date).add(1, "months").format("YYYY-MM"))
+              }
+            />
+          </div>
         </div>
-        <div className="flex flex-col p-1 bg-sky-600 rounded-lg text-white justify-between border-black border-1 shadow-sky-600 shadow-lg divide-y-2">
+        <div className="flex flex-col p-1 bg-sky-600 rounded-lg  justify-between border-black border-1 shadow-sky-600 shadow-lg divide-y-2 divide-black divide-opacity-20">
           <div className="flex justify-between p-2">
             <div>Hours this month</div>
-            <div>154</div>
+            <div>?</div>
           </div>
 
           <div className="flex justify-between p-2">
             <div>Earned this month</div>
-            <div>154€</div>
+            <div>?€</div>
           </div>
         </div>
       </div>
@@ -69,7 +94,7 @@ export default function MyComponent() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200 text-center">
-            {hours &&
+            {hours ? (
               hours.map((item) => (
                 <tr key={item.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -99,7 +124,14 @@ export default function MyComponent() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <tr>
+                <td className="h-16" colSpan="4">
+                  No data found!
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

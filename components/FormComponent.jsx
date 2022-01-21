@@ -1,20 +1,21 @@
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import CheckIcon from "@mui/icons-material/Check";
-import {useState} from "react";
-import {db} from "./firebase/index";
-import {initializeApp} from "firebase/app";
+import { useState } from "react";
+import { db } from "./firebase/index";
+import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   collection,
   getDocs,
   serverTimestamp,
 } from "firebase/firestore";
+import moment from "moment";
 
 function FormComponent() {
   const [wage, setWage] = useState(7.2);
   const [hours, setHours] = useState(8);
-  const [date, setDate] = useState("2022-01-13");
+  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
 
   async function submitHandler(e) {
     e.preventDefault();
@@ -23,15 +24,11 @@ function FormComponent() {
       wage: wage,
       hours: hours,
       date: date,
+      month: moment(date).format("MM"),
       timestamp: serverTimestamp(),
     };
 
-    // const response = await getDocs(collection(db, "hours"));
-
-    //console.log(response);
-
     db.collection("hours").add(insertObject);
-    //console.log(await db.collection("hours").get());
   }
 
   return (
