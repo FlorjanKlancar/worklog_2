@@ -11,6 +11,7 @@ export default function MyComponent() {
   useEffect(() => {
     db.collection("hours")
       .where("month", "==", moment(date).format("MM"))
+      .where("year", "==", moment(date).format("YYYY"))
       .orderBy("date", "asc")
       .onSnapshot((snapshot) =>
         setHours(

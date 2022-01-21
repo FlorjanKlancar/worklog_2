@@ -25,6 +25,7 @@ function FormComponent() {
       hours: hours,
       date: date,
       month: moment(date).format("MM"),
+      year: moment(date).format("YYYY"),
       timestamp: serverTimestamp(),
     };
 
