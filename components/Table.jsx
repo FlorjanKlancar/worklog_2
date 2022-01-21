@@ -23,8 +23,6 @@ export default function MyComponent() {
       );
   }, [date]);
 
-  console.log(hours);
-
   return (
     <>
       <div className="flex flex-col justify-between mt-16 space-y-4">
