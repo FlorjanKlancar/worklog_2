@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Image from "next/image";
 
-function LoginScreen({ setIsAuth }) {
+function LoginScreen({setIsAuth}) {
   const [image, setImage] = useState(randomString(6));
 
   function randomString(length) {
@@ -23,7 +23,7 @@ function LoginScreen({ setIsAuth }) {
   );
 
   return (
-    <div className="w-full  h-full flex flex-col justify-center">
+    <div className="w-full  h-screen flex flex-col justify-center">
       <div className="h-32 w-full relative -mt-32">
         <Image
           src={`https://avatars.dicebear.com/api/female/${image}.svg?mood[]=happy`}

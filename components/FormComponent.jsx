@@ -1,18 +1,15 @@
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import CheckIcon from "@mui/icons-material/Check";
-import { useState } from "react";
-import { db } from "./firebase/index";
-import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  serverTimestamp,
-} from "firebase/firestore";
+import {useState} from "react";
+import {db} from "./firebase/index";
+import {addDoc, collection, serverTimestamp} from "firebase/firestore";
 import moment from "moment";
+import {useSession} from "next-auth/react";
 
 function FormComponent() {
+  const {data: session} = useSession();
+
   const [wage, setWage] = useState(7.2);
   const [hours, setHours] = useState(8);
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
@@ -27,9 +24,10 @@ function FormComponent() {
       month: moment(date).format("MM"),
       year: moment(date).format("YYYY"),
       timestamp: serverTimestamp(),
+      id: session?.user?.uid,
     };
 
-    db.collection("hours").add(insertObject);
+    const docRef = await addDoc(collection(db, "hours"), insertObject);
   }
 
   return (
@@ -76,7 +74,7 @@ function FormComponent() {
         </FloatingLabel>
 
         <button
-          className="w-full bg-sky-600 rounded-md mt-2 p-2 shadow-sky-900 shadow-md font-semibold "
+          className="w-full bg-sky-500 rounded-md mt-2 p-2 shadow-sky-900 shadow-md font-semibold "
           type="submit"
         >
           <CheckIcon />
