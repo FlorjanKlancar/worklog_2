@@ -15,7 +15,7 @@ export default function Home() {
   const { data: session } = useSession();
 
   return (
-    <Fragment>
+    <div className="h-full">
       {session ? (
         <>
           <Navbar /> <UserInfo />
@@ -27,7 +27,7 @@ export default function Home() {
           <Link href={"/auth/signin"}>Sign in</Link>
         </div>
       )}
-    </Fragment>
+    </div>
   );
 }
 

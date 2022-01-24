@@ -6,7 +6,10 @@ export default function SignIn({ providers }) {
       <div className="pt-80">
         {Object.values(providers).map((provider) => (
           <div key={provider.name}>
-            <button onClick={() => signIn(provider.id, { callbackUrl: "/" })}>
+            <button
+              className="bg-blue-500 rounded-lg px-4 py-3 w-full text-white font-semibold"
+              onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+            >
               Sign in with {provider.name}
             </button>
           </div>
