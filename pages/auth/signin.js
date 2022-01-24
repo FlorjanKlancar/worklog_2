@@ -4,7 +4,8 @@ import { getProviders, signIn as SignInFunc } from "next-auth/react";
 function signin({ providers }) {
   return (
     <div className="h-screen">
-      {providers.length &&
+      {providers &&
+        providers.length &&
         Object.values(providers).map((provider) => (
           <div key={provider.name} className="pt-80">
             <div>
