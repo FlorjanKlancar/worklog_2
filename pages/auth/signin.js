@@ -1,35 +1,25 @@
-import React from "react";
-import { getProviders, signIn as SignInFunc } from "next-auth/react";
+import { getProviders, signIn } from "next-auth/react";
 
-function signin({ providers }) {
+export default function SignIn({ providers }) {
   return (
     <div className="h-screen">
-      {providers &&
-        providers.length &&
-        Object.values(providers).map((provider) => (
-          <div key={provider.name} className="pt-80">
-            <div>
-              <button
-                onClick={() => SignInFunc(provider.id, { callbackUrl: "/" })}
-                className="bg-blue-500 rounded-lg px-4 py-3 w-full text-white font-semibold"
-              >
-                Sign in with {provider.name}
-              </button>
-            </div>
+      <div className="pt-80">
+        {Object.values(providers).map((provider) => (
+          <div key={provider.name}>
+            <button onClick={() => signIn(provider.id, { callbackUrl: "/" })}>
+              Sign in with {provider.name}
+            </button>
           </div>
         ))}
+      </div>
     </div>
   );
 }
 
-export async function getServerSideProps() {
+// This is the recommended way for Next.js 9.3 or newer
+export async function getServerSideProps(context) {
   const providers = await getProviders();
-
   return {
-    props: {
-      providers,
-    },
+    props: { providers },
   };
 }
-
-export default signin;

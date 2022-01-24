@@ -10,11 +10,15 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
+  secret: "secret token",
+  jwt: {
+    encryption: false,
+  },
   pages: {
     signIn: "/auth/signin",
   },
   callbacks: {
-    async session({session, token, user}) {
+    async session({ session, token, user }) {
       session.user.uid = token.sub;
 
       return session;
