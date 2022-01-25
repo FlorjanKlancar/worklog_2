@@ -1,4 +1,4 @@
-import {db} from "./firebase/index";
+import { db } from "./firebase/index";
 import {
   collection,
   getDocs,
@@ -6,19 +6,21 @@ import {
   where,
   orderBy,
   onSnapshot,
+  unsubscribe,
 } from "firebase/firestore";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
-import {ArrowRightIcon} from "@heroicons/react/solid";
-import {ArrowLeftIcon} from "@heroicons/react/solid";
-import {TrashIcon} from "@heroicons/react/solid";
-import {PencilAltIcon} from "@heroicons/react/solid";
+import { ArrowRightIcon } from "@heroicons/react/solid";
+import { ArrowLeftIcon } from "@heroicons/react/solid";
+import { TrashIcon } from "@heroicons/react/solid";
+import { PencilAltIcon } from "@heroicons/react/solid";
 import GenericModal from "./GenericModal";
 import Delete from "./Delete";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
+import Edit from "./Edit";
 
 export default function MyComponent() {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
 
   const [editOpenModal, setEditOpenModal] = useState(false);
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
@@ -50,22 +52,40 @@ export default function MyComponent() {
 
   useEffect(() => {
     session && getData();
+
+    //return () => unsubscribe();
   }, [date]);
 
   let hoursThisMonth = 0;
+  let minutesThisMonth = 0;
   let earnedThisMonth = 0;
 
   hours &&
     hours.map((item) => {
+      minutesThisMonth += parseInt(item.data.minutes);
       hoursThisMonth += parseInt(item.data.hours);
       earnedThisMonth += item.data.hours * item.data.wage;
     });
 
+  console.log(minutesThisMonth, "this month mins");
+  if (minutesThisMonth > 60) {
+    minutesThisMonth = (minutesThisMonth / 60).toString();
+    const split = minutesThisMonth.split(".");
+    hoursThisMonth = hoursThisMonth + parseInt(split[0]);
+    minutesThisMonth = (split[1] / 100) * 60;
+  }
+
   return (
     <>
       {deleteOpenModal && (
-        <GenericModal modal={editOpenModal} openModal={setDeleteOpenModal}>
+        <GenericModal modal={deleteOpenModal} openModal={setDeleteOpenModal}>
           <Delete />
+        </GenericModal>
+      )}
+
+      {editOpenModal && (
+        <GenericModal modal={editOpenModal} openModal={setEditOpenModal}>
+          <Edit />
         </GenericModal>
       )}
       <div className="flex flex-col justify-between mt-16 space-y-4">
@@ -96,7 +116,10 @@ export default function MyComponent() {
         <div className="flex flex-col p-1 bg-sky-600 rounded-lg  justify-between border-black border-1 shadow-sky-600 shadow-lg divide-y-2 divide-black divide-opacity-20">
           <div className="flex justify-between p-2">
             <div>Hours this month</div>
-            <div>{hoursThisMonth}</div>
+            <div>
+              {hoursThisMonth} hours{" "}
+              {minutesThisMonth > 0 && minutesThisMonth + " minutes"}
+            </div>
           </div>
 
           <div className="flex justify-between p-2">
@@ -148,6 +171,7 @@ export default function MyComponent() {
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10 ">
                         {item.data.hours}
+                        {item.data.minutes > 0 && -item.data.minutes}
                       </div>
                     </div>
                   </td>

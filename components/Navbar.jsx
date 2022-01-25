@@ -1,6 +1,6 @@
 import MiuiDrawer from "./MiuiDrawer";
-import {LogoutIcon} from "@heroicons/react/solid";
-import {signOut} from "next-auth/react";
+import { LogoutIcon } from "@heroicons/react/solid";
+import { signOut } from "next-auth/react";
 
 function Navbar() {
   return (
@@ -14,7 +14,7 @@ function Navbar() {
           className="text-right w-full font-bold text-lg flex"
           onClick={() => signOut()}
         >
-          Log out
+          <span className="hidden lg:block">Log out</span>
         </button>
         <LogoutIcon className="h-8 w-8 " />
       </div>

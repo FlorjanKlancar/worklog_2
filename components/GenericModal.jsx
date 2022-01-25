@@ -1,8 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
-import {Fragment, useRef} from "react";
-import {Dialog, Transition} from "@headlessui/react";
+import { Fragment, useRef } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 
-export default function GenericModal({modal, openModal, children}) {
+export default function GenericModal({ modal, openModal, children }) {
   const cancelButtonRef = useRef(null);
 
   return (
@@ -13,7 +13,7 @@ export default function GenericModal({modal, openModal, children}) {
         initialFocus={cancelButtonRef}
         onClose={openModal}
       >
-        <div className="flex items-center justify-center min-h-screen text-center ">
+        <div className="flex items-center justify-center min-h-screen text-center p-3">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
