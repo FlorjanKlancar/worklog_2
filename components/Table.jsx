@@ -162,16 +162,27 @@ export default function MyComponent() {
                 <tr key={item.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="flex-shrink-0 h-10 w-10">
-                        {moment(item.data.date).format("DD. MM. YYYY")}
+                      <div className="flex-shrink-0 h-10 w-10 text-sm">
+                        <div>
+                          {moment(item.data.date).format("DD. MM. YYYY")}
+                        </div>
+                        <div className="text-gray-500 text-xs">
+                          {moment(item.data.date).format("dddd")}
+                        </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10 ">
-                        {item.data.hours}
-                        {item.data.minutes > 0 && -item.data.minutes}
+                        <div className="text-black text-base">
+                          {item.data.hours} hours
+                        </div>
+                        {item.data.minutes > 0 && (
+                          <div className="text-gray-500 text-xs">
+                            {item.data.minutes} minutes
+                          </div>
+                        )}
                       </div>
                     </div>
                   </td>

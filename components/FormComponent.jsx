@@ -90,7 +90,6 @@ function FormComponent() {
               onChange={(e) => setMinutes(e.target.value)}
               min="0"
               max="60"
-              step="15"
               required
             />
           </FloatingLabel>
