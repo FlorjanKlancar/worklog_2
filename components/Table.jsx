@@ -72,7 +72,8 @@ export default function MyComponent() {
     minutesThisMonth = (minutesThisMonth / 60).toString();
     const split = minutesThisMonth.split(".");
     hoursThisMonth = hoursThisMonth + parseInt(split[0]);
-    minutesThisMonth = (split[1] / 100) * 60;
+
+    minutesThisMonth = (parseInt(split[1].substring(0, 2)) / 100) * 60;
   }
 
   return (
@@ -118,7 +119,8 @@ export default function MyComponent() {
             <div>Hours this month</div>
             <div>
               {hoursThisMonth} hours{" "}
-              {minutesThisMonth > 0 && minutesThisMonth + " minutes"}
+              {minutesThisMonth > 0 &&
+                Math.round(minutesThisMonth) + " minutes"}
             </div>
           </div>
 
