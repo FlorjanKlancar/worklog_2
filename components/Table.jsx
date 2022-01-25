@@ -114,8 +114,8 @@ export default function MyComponent() {
             />
           </div>
         </div>
-        <div className="flex flex-col p-1 bg-sky-600 rounded-lg  justify-between border-black border-1 shadow-sky-600 shadow-lg divide-y-2 divide-black divide-opacity-20">
-          <div className="flex justify-between p-2">
+        <div className="text-sm sm:text-base flex flex-col p-1 bg-sky-600 rounded-lg  justify-between border-black border-1 shadow-sky-600 shadow-lg divide-y-2 divide-black divide-opacity-20">
+          <div className="flex justify-between p-2 ">
             <div>Hours this month</div>
             <div>
               {hoursThisMonth} hours{" "}
