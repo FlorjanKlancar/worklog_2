@@ -7,8 +7,8 @@ import {doc, deleteDoc} from "firebase/firestore";
 
 function Delete({editItem, setDeleteOpenModal}) {
   async function submitHandler() {
-    await deleteDoc(doc(db, "hours", editItem.id));
     setDeleteOpenModal(false);
+    await deleteDoc(doc(db, "hours", editItem.id));
   }
 
   return (

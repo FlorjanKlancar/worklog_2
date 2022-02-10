@@ -7,8 +7,6 @@ import {db} from "./firebase/index";
 import {doc, updateDoc} from "firebase/firestore";
 
 function Edit({editItem, setEditOpenModal}) {
-  console.log("editItem", editItem);
-
   const [wage, setWage] = useState(editItem.data.wage);
   const [hours, setHours] = useState(editItem.data.hours);
   const [minutes, setMinutes] = useState(editItem.data.minutes);
@@ -21,9 +19,8 @@ function Edit({editItem, setEditOpenModal}) {
     };
 
     const hoursDoc = doc(db, "hours", editItem.id);
-
-    await updateDoc(hoursDoc, saveObject);
     setEditOpenModal(false);
+    await updateDoc(hoursDoc, saveObject);
   }
 
   return (
