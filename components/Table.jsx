@@ -1,4 +1,4 @@
-import { db } from "./firebase/index";
+import {db} from "./firebase/index";
 import {
   collection,
   getDocs,
@@ -8,28 +8,29 @@ import {
   onSnapshot,
   unsubscribe,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import moment from "moment";
-import { ArrowRightIcon } from "@heroicons/react/solid";
-import { ArrowLeftIcon } from "@heroicons/react/solid";
-import { TrashIcon } from "@heroicons/react/solid";
-import { PencilAltIcon } from "@heroicons/react/solid";
+import {ArrowRightIcon} from "@heroicons/react/solid";
+import {ArrowLeftIcon} from "@heroicons/react/solid";
+import {TrashIcon} from "@heroicons/react/solid";
+import {PencilAltIcon} from "@heroicons/react/solid";
 import GenericModal from "./GenericModal";
 import Delete from "./Delete";
-import { useSession } from "next-auth/react";
+import {useSession} from "next-auth/react";
 import Edit from "./Edit";
 
 export default function MyComponent() {
-  const { data: session } = useSession();
+  const {data: session} = useSession();
 
   const [editOpenModal, setEditOpenModal] = useState(false);
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
+
+  const [editItem, setEditItem] = useState();
 
   const [hours, setHours] = useState();
   const [date, setDate] = useState(moment().format("YYYY-MM"));
 
   async function getData() {
-    console.log("fetch");
     const q = query(
       collection(db, "hours"),
       where("id", "==", session?.user?.uid),
@@ -52,8 +53,6 @@ export default function MyComponent() {
 
   useEffect(() => {
     session && getData();
-
-    //return () => unsubscribe();
   }, [date]);
 
   let hoursThisMonth = 0;
@@ -76,17 +75,25 @@ export default function MyComponent() {
     minutesThisMonth = (parseInt(split[1].substring(0, 2)) / 100) * 60;
   }
 
+  function editModalOpen(item) {
+    setEditOpenModal(true);
+    setEditItem(item);
+  }
+  function deleteModalOpen(item) {
+    setDeleteOpenModal(true);
+    setEditItem(item);
+  }
   return (
     <>
       {deleteOpenModal && (
         <GenericModal modal={deleteOpenModal} openModal={setDeleteOpenModal}>
-          <Delete />
+          <Delete editItem={editItem} setDeleteOpenModal={setDeleteOpenModal} />
         </GenericModal>
       )}
 
       {editOpenModal && (
         <GenericModal modal={editOpenModal} openModal={setEditOpenModal}>
-          <Edit />
+          <Edit editItem={editItem} setEditOpenModal={setEditOpenModal} />
         </GenericModal>
       )}
       <div className="flex flex-col justify-between mt-16 space-y-4">
@@ -199,12 +206,12 @@ export default function MyComponent() {
                     <div className="flex items-center">
                       <PencilAltIcon
                         className="h-6 w-6 ml-2 text-gray-400 hover:cursor-pointer "
-                        onClick={() => setEditOpenModal(true)}
+                        onClick={() => editModalOpen(item)}
                       />
 
                       <TrashIcon
                         className="h-6 w-6 ml-2 text-red-500 hover:cursor-pointer "
-                        onClick={() => setDeleteOpenModal(true)}
+                        onClick={() => deleteModalOpen(item)}
                       />
                     </div>
                   </td>

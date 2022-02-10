@@ -1,16 +1,13 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useRef } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import {Fragment} from "react";
+import {Dialog, Transition} from "@headlessui/react";
 
-export default function GenericModal({ modal, openModal, children }) {
-  const cancelButtonRef = useRef(null);
-
+export default function GenericModal({modal, openModal, children}) {
   return (
     <Transition.Root show={modal} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
-        initialFocus={cancelButtonRef}
         onClose={openModal}
       >
         <div className="flex items-center justify-center min-h-screen text-center p-3">
