@@ -45,7 +45,7 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-If you want to setup this project locally you need to generate new project on Firebase, get the Web API Key and save it in .env.example variable.
+If you want to setup this project locally you need to generate new project on Firebase, get the Google credentials and save them in .env.example variable.
 
 ### Installation
 
