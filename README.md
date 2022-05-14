@@ -70,7 +70,8 @@ If you want to setup this project locally you need to generate new project on Fi
 <!-- USAGE EXAMPLES -->
 ## Usage
 The purpose of that project was to keep track of my working hours when I was still working as a student. 
-What I learned in this project
+</br>
+What I learned in this project:
 * Working with Firebase Firestore
 * Keeping session with NextAuth (Google provider etc.)
 * Basics of Tailwind css
