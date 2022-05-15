@@ -8,6 +8,9 @@
 
 <h3>Vercel Deploy: https://worklog-2.vercel.app/</h3>
 
+![image](https://user-images.githubusercontent.com/48727773/168478073-427cf85c-d1ba-4936-a8df-520171048e21.png)
+
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
