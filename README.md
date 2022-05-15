@@ -8,6 +8,9 @@
 
 <h3>Vercel Deploy: https://worklog-2.vercel.app/</h3>
 
+![image](https://user-images.githubusercontent.com/48727773/168478073-427cf85c-d1ba-4936-a8df-520171048e21.png)
+
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -45,7 +48,7 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-If you want to setup this project locally you need to generate new project on Firebase, get the Web API Key and save it in .env.example variable.
+If you want to setup this project locally you need to generate new project on Firebase, get the Google credentials and save them in .env.example variable.
 
 ### Installation
 
